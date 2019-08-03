@@ -136,26 +136,41 @@ public class EnemyController : MonoBehaviour
         {
             Orb orb = collision.gameObject.GetComponent<Orb>();
 
-            //if (m_state != EnemyState.Knocked)
-            if(!orb.returningToHand && orb.GetRigidbody().velocity.magnitude > 2f)
+            switch (orb.energyContainer.energyType)
             {
-                Vector3 knockback = Vector3.zero;
+                case EnergyType.None:
+                case EnergyType.Key:
+                    // Knockback
+                    if (!orb.returningToHand && orb.GetRigidbody().velocity.magnitude > 2f)
+                    {
+                        Vector3 knockback = Vector3.zero;
 
-                foreach (ContactPoint contact in collision.contacts)
-                {
-                    Debug.DrawRay(contact.point, contact.normal, Color.white);
+                        foreach (ContactPoint contact in collision.contacts)
+                        {
+                            Debug.DrawRay(contact.point, contact.normal, Color.white);
 
-                    knockback.x += contact.normal.x;
-                    knockback.z += contact.normal.z;
+                            knockback.x += contact.normal.x;
+                            knockback.z += contact.normal.z;
 
-                }
-                knockback.Normalize();
-                knockback.Scale(new Vector3(knockbackDistance, knockbackDistance, knockbackDistance));
+                        }
+                        knockback.Normalize();
+                        knockback.Scale(new Vector3(knockbackDistance, knockbackDistance, knockbackDistance));
 
-                Knocked(knockback);
+                        Knocked(knockback);
+                    }
+                    break;
+                case EnergyType.Light:
+                    // Stun
+                    // TO DO
+                    break;
+                case EnergyType.Damage:
+                    // Kill
+                    // TO DO
+                    Destroy(gameObject);
+                    break;
+                default:
+                    break;
             }
-
-            //Destroy(gameObject);
         }
         
     }
