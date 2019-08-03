@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Orb : MonoBehaviour
 {
     private Rigidbody rigidbody;
     private Collider collider;
+
+    [Header("Movement settings")]
     public bool isInHand = false;
     public bool returningToHand = false;
 
     public float fakingGravityTime = 0.3f;
     private float fakingGravityUntil;
+
 
     // Start is called before the first frame update
     void Start()
