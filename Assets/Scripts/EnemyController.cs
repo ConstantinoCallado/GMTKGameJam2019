@@ -132,9 +132,12 @@ public class EnemyController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name is "Orb")
+        if (collision.gameObject.tag == "Orb")
         {
+            Orb orb = collision.gameObject.GetComponent<Orb>();
+
             //if (m_state != EnemyState.Knocked)
+            if(!orb.returningToHand && orb.GetRigidbody().velocity.magnitude > 2f)
             {
                 Vector3 knockback = Vector3.zero;
 

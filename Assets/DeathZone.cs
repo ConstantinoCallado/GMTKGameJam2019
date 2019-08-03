@@ -13,7 +13,8 @@ public class DeathZone : MonoBehaviour
             // if player then tell the player to do its FallDeath
             //TO DO
             //Destroy(gameObject);
-        } else if (destroyNonPlayerObjects)
+        }
+        else if (destroyNonPlayerObjects && collision.gameObject.tag is "Enemy")
         { // not playe so just kill object - could be falling enemy for example
             Object.Destroy(collision.gameObject);
         }
