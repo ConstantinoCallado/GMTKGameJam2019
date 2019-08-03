@@ -24,7 +24,7 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
@@ -206,7 +206,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 225556406}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.5, y: 4.11, z: 1.27}
+  m_LocalPosition: {x: -1.5, y: 4.11, z: 1.45}
   m_LocalScale: {x: 15.161445, y: 1, z: 26.617626}
   m_Children: []
   m_Father: {fileID: 0}
@@ -323,6 +323,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInHand: 0
+  returningToHand: 0
 --- !u!122 &514131306
 Halo:
   m_ObjectHideFlags: 0
@@ -334,7 +335,7 @@ Halo:
   m_Color:
     serializedVersion: 2
     rgba: 4287072135
-  m_Size: 0.35
+  m_Size: 0.32
 --- !u!1 &723548983
 GameObject:
   m_ObjectHideFlags: 0
@@ -980,47 +981,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1775623743 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3413734105737551187, guid: 72f1ac110877e28448cb6a279f8766a7,
-    type: 3}
-  m_PrefabInstance: {fileID: 3308862800811363106}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1775623744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1775623743}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f63ea61b00469a4394f1cd4d8796b47, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  orbSocket: {fileID: 1952580508}
-  orbThrowSpeed: 15
-  delayToPickupOrb: 0.2
---- !u!136 &1775623745
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1775623743}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!4 &1952580508 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3413734105427771632, guid: 72f1ac110877e28448cb6a279f8766a7,
-    type: 3}
-  m_PrefabInstance: {fileID: 3308862800811363106}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1227326480450716593
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1037,6 +997,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Orb
+      objectReference: {fileID: 0}
+    - target: {fileID: 1227326480608331477, guid: 114633f3f9e1cc44394beb1096dbdcfb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1227326480608331481, guid: 114633f3f9e1cc44394beb1096dbdcfb,
         type: 3}
@@ -1139,7 +1104,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2136693111, guid: 114633f3f9e1cc44394beb1096dbdcfb, type: 3}
       propertyPath: m_Range
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2136693111, guid: 114633f3f9e1cc44394beb1096dbdcfb, type: 3}
       propertyPath: m_Intensity
@@ -1158,11 +1123,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FPSController
-      objectReference: {fileID: 0}
-    - target: {fileID: 3413734105737551187, guid: 72f1ac110877e28448cb6a279f8766a7,
-        type: 3}
-      propertyPath: m_TagString
-      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 3413734105737118067, guid: 72f1ac110877e28448cb6a279f8766a7,
         type: 3}
@@ -1219,45 +1179,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3413734105748400275, guid: 72f1ac110877e28448cb6a279f8766a7,
-        type: 3}
-      propertyPath: m_Radius
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3413734105748400275, guid: 72f1ac110877e28448cb6a279f8766a7,
-        type: 3}
-      propertyPath: m_StepOffset
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3413734105747237043, guid: 72f1ac110877e28448cb6a279f8766a7,
-        type: 3}
-      propertyPath: m_UseHeadBob
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3413734105747237043, guid: 72f1ac110877e28448cb6a279f8766a7,
-        type: 3}
-      propertyPath: m_IsWalking
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3413734105740525107, guid: 72f1ac110877e28448cb6a279f8766a7,
-        type: 3}
-      propertyPath: m_IsKinematic
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3413734105737118065, guid: 72f1ac110877e28448cb6a279f8766a7,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3413734105427771632, guid: 72f1ac110877e28448cb6a279f8766a7,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.72
-      objectReference: {fileID: 0}
-    - target: {fileID: 3413734105427771632, guid: 72f1ac110877e28448cb6a279f8766a7,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.43
+    - target: {fileID: 1775623744, guid: 72f1ac110877e28448cb6a279f8766a7, type: 3}
+      propertyPath: orbReturningSpeed
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72f1ac110877e28448cb6a279f8766a7, type: 3}

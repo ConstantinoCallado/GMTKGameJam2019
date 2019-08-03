@@ -6,6 +6,7 @@ public class Character : MonoBehaviour
 {
     public Transform orbSocket;
     public float orbThrowSpeed = 10;
+    public float orbReturningSpeed = 40;
     private Orb orb;
     private Camera camera;
 
@@ -21,11 +22,15 @@ public class Character : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0) && orb)
         {
-            if(orb && orb.isInHand)
+            if(orb.isInHand)
             {
                 ThrowOrb();
+            }
+            else if(!orb.returningToHand)
+            {
+                InvokeOrb();
             }
         }
 
@@ -35,12 +40,21 @@ public class Character : MonoBehaviour
         }
     }
 
+    void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Orb" && coolDownToPickupOrb < Time.time)
+        {
+            orb = other.gameObject.GetComponent<Orb>();
+            PickUpOrb();
+        }
+    }
 
     void ThrowOrb()
     {
         if (orb && orb.isInHand)
         {
-            orb.Throw();
+            orb.SetPhysics(true);
+            orb.isInHand = false;
             orb.transform.parent = null;
             orb.transform.position = camera.transform.position + (camera.transform.forward * 0.75f);
             orb.GetRigidbody().AddForce(camera.transform.forward * orbThrowSpeed, ForceMode.VelocityChange);
@@ -49,16 +63,54 @@ public class Character : MonoBehaviour
         }
     }
 
-    void OnTriggerStay(Collider other)
+    void PickUpOrb()
     {
-        if (other.gameObject.tag == "Orb" && coolDownToPickupOrb < Time.time)
-        {
-            // Pick up the orb
-            orb = other.gameObject.GetComponent<Orb>();
-            orb.PickUp();
+        // Pick up the orb
+        orb.SetPhysics(false);
+        orb.isInHand = true;
 
-            orb.transform.position = orbSocket.position;
-            orb.transform.parent = orbSocket;
+        orb.transform.position = orbSocket.position;
+        orb.transform.parent = orbSocket;
+    }
+
+    void InvokeOrb()
+    {
+        orb.SetPhysics(false);
+        orb.returningToHand = true;
+
+        StartCoroutine(CorutineInvokeOrb());
+    }
+
+    public IEnumerator CorutineInvokeOrb()
+    {
+        Vector3 incomingOrbDirection = Vector3.zero;
+
+        while(Vector3.Distance(orb.transform.position, orbSocket.position) > 0.01f)
+        {
+            incomingOrbDirection = (orbSocket.position - orb.transform.position).normalized;
+            orb.transform.position = Vector3.MoveTowards(orb.transform.position, orbSocket.position, Time.deltaTime * orbReturningSpeed);
+
+            yield return new WaitForEndOfFrame();
         }
+        
+        Vector3 overShootTarget = orbSocket.position + incomingOrbDirection * 0.25f;
+        
+        while(Vector3.Distance(orb.transform.position, overShootTarget) > 0.01f)
+        {
+            orb.transform.position = Vector3.MoveTowards(orb.transform.position, overShootTarget, Time.deltaTime * orbReturningSpeed * 0.2f);
+            //Vector3.Lerp(orb.transform.position, overShootTarget, Time.deltaTime * orbReturningSpeed);    
+            yield return new WaitForEndOfFrame();
+        }
+
+        while (Vector3.Distance(orb.transform.position, orbSocket.position) > 0.01f)
+        {
+            orb.transform.position = Vector3.MoveTowards(orb.transform.position, orbSocket.position, Time.deltaTime * orbReturningSpeed * 0.04f);
+            //Vector3.Lerp(orb.transform.position, orbSocket.position, Time.deltaTime * orbReturningSpeed);
+            yield return new WaitForEndOfFrame();
+        }
+
+        orb.returningToHand = false;
+        PickUpOrb();
     }
 }
+
