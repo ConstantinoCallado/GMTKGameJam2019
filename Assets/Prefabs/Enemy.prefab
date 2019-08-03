@@ -271,7 +271,7 @@ MonoBehaviour:
   target: {fileID: 0}
   maximumSeekDistance: 30
   attackingDistance: 3
-  stunTime: 0
+  stunTime: 10
   knockbackDistance: 5
   knockbackSpeed: 10
   knockbackTime: 1
