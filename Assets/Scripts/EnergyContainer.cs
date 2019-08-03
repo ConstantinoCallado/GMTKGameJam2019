@@ -22,7 +22,6 @@ public class EnergyContainer : MonoBehaviour
     public Renderer orbMesh;
     public Light orbLight;
 
-    
     public HaloRefs[] halos;
 
     public void Start()
@@ -37,13 +36,46 @@ public class EnergyContainer : MonoBehaviour
     }
     #endif
 
+    public void SetEnergy(float amount, EnergyType type)
+    {
+        energy = 0;
+        AddEnergy(amount, type);
+    }
+
+    public void AddEnergy(float amount, EnergyType type)
+    {
+        energyType = type;
+
+        if(type != EnergyType.None)
+        {
+            energy = Mathf.Clamp(energy + amount, 0, maxEnergyPool);
+        }
+        else
+        {
+            energy = 0;
+        }
+
+        RecalculateAspect();
+    }
+
+    public void DrainEnergy(float amount)
+    {
+        energy = Mathf.Clamp(energy - amount, 0, maxEnergyPool);
+
+        if(energy == 0)
+        {
+            energyType = EnergyType.None;
+        }
+
+        RecalculateAspect();
+    }
+
     public void RecalculateAspect()
     {
         switch (energyType)
         {
             case EnergyType.None:
-                orbMesh.material.SetColor("_EmissionColor", new Color(0.1f, 0.1f, 0.1f));
-                orbMesh.material.SetColor("_Color", Color.black);
+                orbMesh.sharedMaterial = Resources.Load("Material/Orbs/None", typeof(Material)) as Material;
                 orbLight.color = new Color(0.4f, 0.4f, 0.4f);
                 orbLight.intensity = 0.3f;
                 orbLight.range = 5;
@@ -51,17 +83,15 @@ public class EnergyContainer : MonoBehaviour
                 break;
 
             case EnergyType.Light:
-                orbMesh.material.SetColor("_EmissionColor", new Color(1, 1, 1) * 2);
-                orbMesh.material.SetColor("_Color", new Color(1, 1, 1));
-                orbLight.intensity = 1.5f;
+                orbMesh.sharedMaterial = Resources.Load("Material/Orbs/Light", typeof(Material)) as Material;
                 orbLight.color = new Color(1, 1, 1);
+                orbLight.intensity = 1.5f;
                 orbLight.range = 9;
                 ActivateHalo("Light");
                 break;
 
             case EnergyType.Damage:
-                orbMesh.material.SetColor("_EmissionColor", new Color(0.75f, 0, 0.09f) * 2);
-                orbMesh.material.SetColor("_Color", new Color(0.75f, 0, 0.09f));
+                orbMesh.sharedMaterial = Resources.Load("Material/Orbs/Damage", typeof(Material)) as Material;
                 orbLight.color = new Color(0.75f, 0, 0.09f);
                 orbLight.intensity = 1;
                 orbLight.range = 6;
@@ -69,17 +99,13 @@ public class EnergyContainer : MonoBehaviour
                 break;
 
             case EnergyType.Key:
-                orbMesh.material.SetColor("_EmissionColor", new Color(1f, 0.88f, 0.17f) * 1.41f);
-                orbMesh.material.SetColor("_Color", new Color(0.75f, 0.66f, 0.13f));
+                orbMesh.sharedMaterial = Resources.Load("Material/Orbs/Key", typeof(Material)) as Material;
                 orbLight.color = new Color(1, 0.92f, 0.34f);
                 orbLight.intensity = 1;
                 orbLight.range = 6;
                 ActivateHalo("Key");
                 break;
         }
-
-        
-        //orbMesh.material.SetColor ("_EmissionColor", Color.black);
     }
 
     public void ActivateHalo(string energyName)

@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
+[RequireComponent(typeof(EnergyContainer))]
 public class Orb : MonoBehaviour
 {
     private Rigidbody rigidbody;
     private Collider collider;
+
+    public EnergyContainer energyContainer;
 
     [Header("Movement settings")]
     public bool isInHand = false;
@@ -15,10 +17,10 @@ public class Orb : MonoBehaviour
     public float fakingGravityTime = 0.3f;
     private float fakingGravityUntil;
 
-
     // Start is called before the first frame update
     void Start()
     {
+        energyContainer = GetComponent<EnergyContainer>();
         rigidbody = GetComponent<Rigidbody>();
         collider = GetComponent<SphereCollider>();
     }
