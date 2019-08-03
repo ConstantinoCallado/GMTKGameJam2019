@@ -324,6 +324,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInHand: 0
   returningToHand: 0
+  fakingGravityTime: 0.3
 --- !u!122 &514131306
 Halo:
   m_ObjectHideFlags: 0
@@ -1094,6 +1095,11 @@ PrefabInstance:
       propertyPath: m_AngularDrag
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1227326480608331480, guid: 114633f3f9e1cc44394beb1096dbdcfb,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2136693109, guid: 114633f3f9e1cc44394beb1096dbdcfb, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -1182,6 +1188,10 @@ PrefabInstance:
     - target: {fileID: 1775623744, guid: 72f1ac110877e28448cb6a279f8766a7, type: 3}
       propertyPath: orbReturningSpeed
       value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 1775623744, guid: 72f1ac110877e28448cb6a279f8766a7, type: 3}
+      propertyPath: orbThrowSpeed
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72f1ac110877e28448cb6a279f8766a7, type: 3}

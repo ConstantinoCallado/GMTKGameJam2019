@@ -53,8 +53,7 @@ public class Character : MonoBehaviour
     {
         if (orb && orb.isInHand)
         {
-            orb.SetPhysics(true);
-            orb.isInHand = false;
+            orb.Throw();
             orb.transform.parent = null;
             orb.transform.position = camera.transform.position + (camera.transform.forward * 0.75f);
             orb.GetRigidbody().AddForce(camera.transform.forward * orbThrowSpeed, ForceMode.VelocityChange);
@@ -65,10 +64,7 @@ public class Character : MonoBehaviour
 
     void PickUpOrb()
     {
-        // Pick up the orb
-        orb.SetPhysics(false);
-        orb.isInHand = true;
-
+        orb.PickUp();
         orb.transform.position = orbSocket.position;
         orb.transform.parent = orbSocket;
     }
@@ -85,19 +81,24 @@ public class Character : MonoBehaviour
     {
         Vector3 incomingOrbDirection = Vector3.zero;
 
-        while(Vector3.Distance(orb.transform.position, orbSocket.position) > 0.01f)
+        while(Vector3.Distance(orb.transform.position, orbSocket.position) > 0.02f)
         {
             incomingOrbDirection = (orbSocket.position - orb.transform.position).normalized;
             orb.transform.position = Vector3.MoveTowards(orb.transform.position, orbSocket.position, Time.deltaTime * orbReturningSpeed);
 
+            if (Vector3.Distance(orb.transform.position, orbSocket.position) < 0.5f)
+            {
+                orb.transform.parent = orbSocket;
+            }
+
             yield return new WaitForEndOfFrame();
         }
         
-        Vector3 overShootTarget = orbSocket.position + incomingOrbDirection * 0.25f;
-        
-        while(Vector3.Distance(orb.transform.position, overShootTarget) > 0.01f)
+        Vector3 overShootOffset = incomingOrbDirection * 0.25f;
+
+        while (Vector3.Distance(orb.transform.position, orbSocket.position + overShootOffset) > 0.01f)
         {
-            orb.transform.position = Vector3.MoveTowards(orb.transform.position, overShootTarget, Time.deltaTime * orbReturningSpeed * 0.2f);
+            orb.transform.position = Vector3.MoveTowards(orb.transform.position, orbSocket.position + overShootOffset, Time.deltaTime * orbReturningSpeed * 0.2f);
             //Vector3.Lerp(orb.transform.position, overShootTarget, Time.deltaTime * orbReturningSpeed);    
             yield return new WaitForEndOfFrame();
         }
