@@ -13,6 +13,8 @@ public class Character : MonoBehaviour
     public float delayToPickupOrb = 0.2f;
     private float coolDownToPickupOrb;
 
+    public Interactable interactableInRange;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,9 +36,21 @@ public class Character : MonoBehaviour
             }
         }
 
+        // Correct the orb position
         if (orb && orb.isInHand)
         {
             orb.transform.localPosition = Vector3.zero;
+        }
+
+        // Check for near interactables
+        if(interactableInRange && interactableInRange.CanBeUsed(this))
+        {
+            Debug.Log("Press E to interact with " + interactableInRange.gameObject.name);
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                interactableInRange.Interact(this);
+            }
         }
     }
 
@@ -46,6 +60,22 @@ public class Character : MonoBehaviour
         {
             orb = other.gameObject.GetComponent<Orb>();
             PickUpOrb();
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Interactable")
+        {
+            interactableInRange = other.GetComponent<Interactable>();
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject.tag == "Interactable")
+        {
+            interactableInRange = null;
         }
     }
 
@@ -112,6 +142,11 @@ public class Character : MonoBehaviour
 
         orb.returningToHand = false;
         PickUpOrb();
+    }
+
+    public Orb GetOrb()
+    {
+        return orb;
     }
 }
 
