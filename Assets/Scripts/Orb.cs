@@ -6,6 +6,7 @@ public class Orb : MonoBehaviour
 {
     private Rigidbody rigidbody;
     private Collider collider;
+    public bool isInHand = false;
 
     // Start is called before the first frame update
     void Start()
@@ -24,12 +25,16 @@ public class Orb : MonoBehaviour
     {
         rigidbody.isKinematic = true;
         collider.enabled = false;
+
+        isInHand = true;
     }
 
     public void Throw()
     {
         rigidbody.isKinematic = false;
         collider.enabled = true;
+
+        isInHand = false;
     }
 
     public Rigidbody GetRigidbody()

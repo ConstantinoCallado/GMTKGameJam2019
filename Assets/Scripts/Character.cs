@@ -9,6 +9,8 @@ public class Character : MonoBehaviour
     private Orb orb;
     private Camera camera;
 
+    public float delayToPickupOrb = 0.2f;
+    private float coolDownToPickupOrb;
 
     // Start is called before the first frame update
     void Start()
@@ -21,31 +23,42 @@ public class Character : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0))
         {
-            ThrowOrb();
+            if(orb && orb.isInHand)
+            {
+                ThrowOrb();
+            }
+        }
+
+        if (orb && orb.isInHand)
+        {
+            orb.transform.localPosition = Vector3.zero;
         }
     }
+
 
     void ThrowOrb()
     {
-        if(orb)
+        if (orb && orb.isInHand)
         {
             orb.Throw();
             orb.transform.parent = null;
+            orb.transform.position = camera.transform.position + (camera.transform.forward * 0.75f);
             orb.GetRigidbody().AddForce(camera.transform.forward * orbThrowSpeed, ForceMode.VelocityChange);
-            orb = null;
+
+            coolDownToPickupOrb = Time.time + delayToPickupOrb;
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Orb")
+        if (other.gameObject.tag == "Orb" && coolDownToPickupOrb < Time.time)
         {
             // Pick up the orb
             orb = other.gameObject.GetComponent<Orb>();
             orb.PickUp();
 
+            orb.transform.position = orbSocket.position;
             orb.transform.parent = orbSocket;
-            orb.transform.localPosition = Vector3.zero;
         }
     }
 }
