@@ -1,31 +1,35 @@
 using System;
 using UnityEngine;
 
-public enum EnemyState { Idle, SeekingPlayer, SeekingSpot, Attacking, Knocked, Falling, Dying };
+public enum EnemyState { Idle, SeekingPlayer, SeekingSpot, Attacking, Knocked, Stunned, Falling, Dying };
 
 [RequireComponent(typeof (UnityEngine.AI.NavMeshAgent))]
 
 public class EnemyController : MonoBehaviour
 {
        
-    public UnityEngine.AI.NavMeshAgent agent { get; private set; }             // the navmesh agent required for the path finding
+    public UnityEngine.AI.NavMeshAgent agent { get; private set; }   // the navmesh agent required for the path finding
     public Transform character { get; private set; }
 
     public LayerMask whatIsGround;
 
-    public Transform target;                                    // target to aim for
+    public Transform target;                                        // target to aim for
 
     public float maximumSeekDistance;
+    public float attackingDistance;
+
+    // stun
+    public float stunTime;
 
     // knockback
     public float knockbackDistance;
-    // Movement speed in units/sec.
-    public float knockbackSpeed = 1.0F;
-
+    public float knockbackSpeed = 1.0F;                             // Movement speed in units/sec.
     public float knockbackTime;
 
     [Header("Initial state")]
     public EnemyState initialState;
+
+    public EnemyAttackArea attackArea;
 
     Rigidbody m_Rigidbody;
     Animator m_Animator;
@@ -35,6 +39,7 @@ public class EnemyController : MonoBehaviour
     bool m_IsGrounded;
     Vector3 m_GroundNormal;
 
+    private float m_stunEndTime;
     private float m_knockbackEndTime;
 
     private void Start()
@@ -81,6 +86,11 @@ public class EnemyController : MonoBehaviour
                         m_state = EnemyState.Idle;
                         m_Animator.SetBool("playerIsVisible", false);
                     }
+                    else if (targetDistance < attackingDistance)
+                    {
+                        m_state = EnemyState.Attacking;
+                        m_Animator.SetTrigger("attack");
+                    }
                 }
 
                 break;
@@ -101,6 +111,18 @@ public class EnemyController : MonoBehaviour
                     agent.enabled = true;
                     m_state = EnemyState.Idle;
                 }
+                break;
+            case EnemyState.Stunned:
+                if (m_stunEndTime < Time.time)
+                {
+                    m_Animator.SetBool("stunned", false);
+                    m_Rigidbody.isKinematic = true;
+                    agent.enabled = true;
+                    m_state = EnemyState.Idle;
+                }
+                break;
+            case EnemyState.Attacking:
+                // nothing at the moment
                 break;
             case EnemyState.SeekingSpot:
 
@@ -136,41 +158,45 @@ public class EnemyController : MonoBehaviour
         {
             Orb orb = collision.gameObject.GetComponent<Orb>();
 
-            switch (orb.energyContainer.energyType)
+            // Calculate knockback
+            Vector3 knockback = Vector3.zero;
+            
+            // if the ball is on the floor or bouncing, we don't take it into account
+            if (!orb.returningToHand && orb.GetRigidbody().velocity.magnitude > 2f)
             {
-                case EnergyType.None:
-                case EnergyType.Key:
-                    // Knockback
-                    if (!orb.returningToHand && orb.GetRigidbody().velocity.magnitude > 2f)
-                    {
-                        Vector3 knockback = Vector3.zero;
 
-                        foreach (ContactPoint contact in collision.contacts)
-                        {
-                            Debug.DrawRay(contact.point, contact.normal, Color.white);
+                foreach (ContactPoint contact in collision.contacts)
+                {
+                    Debug.DrawRay(contact.point, contact.normal, Color.white);
 
-                            knockback.x += contact.normal.x;
-                            knockback.z += contact.normal.z;
+                    knockback.x += contact.normal.x;
+                    knockback.z += contact.normal.z;
 
-                        }
-                        knockback.Normalize();
-                        knockback.Scale(new Vector3(knockbackDistance, knockbackDistance, knockbackDistance));
+                }
+                knockback.Normalize();
+                knockback.Scale(new Vector3(knockbackDistance, knockbackDistance, knockbackDistance));
+                
+                // apply knockback
+                m_Rigidbody.AddForce(knockback, ForceMode.VelocityChange);
 
-                        Knocked(knockback);
-                    }
-                    break;
-                case EnergyType.Light:
-                    // Stun
-                    // TO DO
-                    break;
-                case EnergyType.Damage:
-                    // Kill
-                    // TO DO
-                    Destroy(gameObject);
-                    break;
-                default:
-                    break;
+                // calculate effect depending on energy type
+                switch (orb.energyContainer.energyType)
+                {
+                    case EnergyType.None:
+                    case EnergyType.Key:
+                        Knocked();
+                        break;
+                    case EnergyType.Light:
+                        Stunned();
+                        break;
+                    case EnergyType.Damage:
+                        StartDying();
+                        break;
+                    default:
+                        break;
+                }
             }
+            
         }
         
     }
@@ -194,16 +220,48 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void Knocked(Vector3 distance)
+    private void Knocked()
     {
-        m_knockbackEndTime = Time.time + knockbackTime;
-
         m_Rigidbody.isKinematic = false;
-        m_Rigidbody.AddForce(distance, ForceMode.VelocityChange);
-
         agent.enabled = false;
 
         m_state = EnemyState.Knocked;
         m_Animator.SetBool("knocked", true);
+
+        m_knockbackEndTime = Time.time + knockbackTime;
+    }
+
+    private void Stunned()
+    {
+        m_Rigidbody.isKinematic = false;
+        agent.enabled = false;
+
+        m_state = EnemyState.Stunned;
+        m_Animator.SetBool("stunned", true);
+
+        m_stunEndTime = Time.time + stunTime;
+    }
+
+    private void StartDying()
+    {
+        m_Rigidbody.isKinematic = false;
+        agent.enabled = false;
+
+        m_state = EnemyState.Dying;
+        m_Animator.SetTrigger("killed");
+    }
+
+    public void Kill()
+    {
+        Destroy(gameObject);
+    }
+
+    public void Attack()
+    {
+        // if player is in the attack area, give damage
+        if (attackArea != null && attackArea.active && target != null && target.tag == "Player")
+            target.gameObject.GetComponent<Character>().TakeDamage();
+
+        m_state = EnemyState.Idle;
     }
 }

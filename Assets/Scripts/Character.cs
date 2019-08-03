@@ -148,5 +148,10 @@ public class Character : MonoBehaviour
     {
         return orb;
     }
+
+    public void TakeDamage()
+    {
+        Debug.Log("Took damage!");
+    }
 }
 
