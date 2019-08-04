@@ -132,6 +132,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnergyFountain (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 6132561785169873950, guid: cfa25b93b3537f3428bdfa9893244e2d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6132561785169873946, guid: cfa25b93b3537f3428bdfa9893244e2d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -332,6 +337,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnergyFountain (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6132561785169873950, guid: cfa25b93b3537f3428bdfa9893244e2d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6132561785169873946, guid: cfa25b93b3537f3428bdfa9893244e2d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -432,6 +442,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DoorSwitch (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6969764086718370688, guid: 735a22b2af940be4f922fb68271d2b34,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6260788922084319635, guid: 735a22b2af940be4f922fb68271d2b34,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -500,7 +515,32 @@ PrefabInstance:
     - target: {fileID: 966061159823225590, guid: 735a22b2af940be4f922fb68271d2b34,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 966061159823225590, guid: 735a22b2af940be4f922fb68271d2b34,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 966061159823225590, guid: 735a22b2af940be4f922fb68271d2b34,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 966061159823225590, guid: 735a22b2af940be4f922fb68271d2b34,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 966061159823225590, guid: 735a22b2af940be4f922fb68271d2b34,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 966061159823225590, guid: 735a22b2af940be4f922fb68271d2b34,
+        type: 3}
+      propertyPath: m_Range
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5863598947457710223, guid: 735a22b2af940be4f922fb68271d2b34,
         type: 3}
@@ -520,6 +560,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnergyFountain (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6132561785169873950, guid: cfa25b93b3537f3428bdfa9893244e2d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6132561785169873946, guid: cfa25b93b3537f3428bdfa9893244e2d,
         type: 3}
@@ -977,6 +1022,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnergyFountain (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6132561785169873950, guid: cfa25b93b3537f3428bdfa9893244e2d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6132561785169873946, guid: cfa25b93b3537f3428bdfa9893244e2d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1058,7 +1108,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1213106653, guid: cfa25b93b3537f3428bdfa9893244e2d, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2045813801855084341, guid: cfa25b93b3537f3428bdfa9893244e2d,
         type: 3}
@@ -1279,6 +1329,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnergyStorage
+      objectReference: {fileID: 0}
+    - target: {fileID: 2683263342827306174, guid: ce0b16454752d1d4997b71714bca9f35,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2683263342827306170, guid: ce0b16454752d1d4997b71714bca9f35,
         type: 3}
@@ -1506,6 +1561,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DoorSwitch
       objectReference: {fileID: 0}
+    - target: {fileID: 6969764086718370688, guid: 735a22b2af940be4f922fb68271d2b34,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6260788922084319635, guid: 735a22b2af940be4f922fb68271d2b34,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1630,6 +1690,19 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1186957155, guid: 72f1ac110877e28448cb6a279f8766a7, type: 3}
+      propertyPath: m_Intensity
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 3308862800227150616, guid: 72f1ac110877e28448cb6a279f8766a7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1824336020, guid: 72f1ac110877e28448cb6a279f8766a7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72f1ac110877e28448cb6a279f8766a7, type: 3}
 --- !u!1001 &4743884098173850091
@@ -1727,6 +1800,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnergyStorage
+      objectReference: {fileID: 0}
+    - target: {fileID: 2683263342827306174, guid: ce0b16454752d1d4997b71714bca9f35,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2683263342827306170, guid: ce0b16454752d1d4997b71714bca9f35,
         type: 3}
