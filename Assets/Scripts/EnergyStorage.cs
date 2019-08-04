@@ -22,7 +22,7 @@ public class EnergyStorage : Interactable
     {
         Orb orbRef = player.GetOrb();
 
-        return (orbRef != null && orbRef.isInHand);
+        return (orbRef != null && orbRef.isInHand && !(orbRef.energyContainer.energy == 0 && m_EnergyContainer.energy == 0));
     }
 
     public override string GetHintText(Character player)
