@@ -87,9 +87,10 @@ public class EnergyContainer : MonoBehaviour
         {
             case EnergyType.None:
                 orbMesh.sharedMaterial = Resources.Load("Material/Orbs/None", typeof(Material)) as Material;
-                orbLight.color = new Color(0.4f, 0.4f, 0.4f);
-                orbLight.intensity = 0.3f;
-                orbLight.range = 5;
+                orbLight.enabled = false;
+                //orbLight.color = new Color(0.4f, 0.4f, 0.4f);
+                //orbLight.intensity = 0.3f;
+                //orbLight.range = 5;
                 ActivateHalo("None");
                 if (particles) 
                 {
@@ -100,6 +101,7 @@ public class EnergyContainer : MonoBehaviour
 
             case EnergyType.Light:
                 orbMesh.sharedMaterial = Resources.Load("Material/Orbs/Light", typeof(Material)) as Material;
+                orbLight.enabled = true;
                 orbLight.color = new Color(1, 1, 1);
                 orbLight.intensity = 1.5f;
                 orbLight.range = 9;
@@ -118,6 +120,7 @@ public class EnergyContainer : MonoBehaviour
 
             case EnergyType.Damage:
                 orbMesh.sharedMaterial = Resources.Load("Material/Orbs/Damage", typeof(Material)) as Material;
+                orbLight.enabled = true;
                 orbLight.color = new Color(0.75f, 0, 0.09f);
                 orbLight.intensity = 1;
                 orbLight.range = 6;
@@ -136,6 +139,7 @@ public class EnergyContainer : MonoBehaviour
 
             case EnergyType.Key:
                 orbMesh.sharedMaterial = Resources.Load("Material/Orbs/Key", typeof(Material)) as Material;
+                orbLight.enabled = true;
                 orbLight.color = new Color(1, 0.92f, 0.34f);
                 orbLight.intensity = 1;
                 orbLight.range = 6;
