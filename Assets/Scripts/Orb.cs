@@ -47,6 +47,7 @@ public class Orb : MonoBehaviour
     {
         Debug.Log("Orb hitted " + collision.gameObject.name);
 
+
         if (collision.gameObject.tag == "Enemy")
         {
             collision.gameObject.GetComponent<EnemyController>().HitByOrb(this, collision);

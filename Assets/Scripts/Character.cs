@@ -47,7 +47,7 @@ public class Character : MonoBehaviour
         {
             Debug.Log("Press E to interact with " + interactableInRange.gameObject.name);
 
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetMouseButtonDown(1))
             {
                 interactableInRange.Interact(this);
             }
