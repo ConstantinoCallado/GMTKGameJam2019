@@ -118,16 +118,20 @@ public class EnemyController : MonoBehaviour
                 if (target != null)
                 {
                     float distanceToPlayer = Vector3.Distance(target.transform.position, transform.position);
-                    float playerDistanceToSpot = Vector3.Distance(guardingSpot.transform.position, target.transform.position);
 
                     if (agent.enabled)
                         agent.SetDestination(target.position);
                     
                     // enemy is guard and player is too far from the guarding spot 
-                    if (isGuard && guardingSpot != null && playerDistanceToSpot > guardingMaxRadius)
+                    if (isGuard && guardingSpot != null)
                     {
-                        m_state = EnemyState.Idle;
-                        m_Animator.SetBool("seeking", false);
+                        float playerDistanceToSpot = Vector3.Distance(guardingSpot.transform.position, target.transform.position);
+
+                        if (playerDistanceToSpot > guardingMaxRadius)
+                        {
+                            m_state = EnemyState.Idle;
+                            m_Animator.SetBool("seeking", false);
+                        }
                     }
                     // player is out of sight
                     else if (distanceToPlayer > maximumSeekDistance)
