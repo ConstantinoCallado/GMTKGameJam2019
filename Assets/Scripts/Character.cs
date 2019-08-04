@@ -22,6 +22,8 @@ public class Character : MonoBehaviour
     public FirstPersonController firstPersonController;
     public bool isAlive = true;
 
+    public GameObject rightMouseHint;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,12 +56,17 @@ public class Character : MonoBehaviour
         // Check for near interactables
         if(interactableInRange && interactableInRange.CanBeUsed(this))
         {
+            rightMouseHint.SetActive(true);
             Debug.Log("Press E to interact with " + interactableInRange.gameObject.name);
 
             if (Input.GetMouseButtonDown(1))
             {
                 interactableInRange.Interact(this);
             }
+        }
+        else
+        {
+            rightMouseHint.SetActive(false);
         }
     }
 
