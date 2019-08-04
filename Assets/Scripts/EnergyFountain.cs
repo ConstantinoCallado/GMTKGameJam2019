@@ -11,6 +11,7 @@ public class EnergyFountain : Interactable
     public bool singleUse = false;
 
     private EnergyType energyType;
+    public AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +34,8 @@ public class EnergyFountain : Interactable
     public override void Interact(Character player)
     {
         Orb orbRef = player.GetOrb();
+
+        audioSource.Play();
 
         if (orbRef.energyContainer.pickedFromFountain)
         {

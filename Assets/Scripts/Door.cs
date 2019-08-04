@@ -13,6 +13,8 @@ public class Door : MonoBehaviour
     public Transform doorTransform;
     public float speed = 2f;
 
+    public AudioSource openSound;
+
     public void Awake()
     {
         if(switches.Length == 0)
@@ -35,6 +37,11 @@ public class Door : MonoBehaviour
         for(int i=0; i<switches.Length; i++)
         {
             isPowered = isPowered && switches[i].isPowered;
+        }
+
+        if (isOpened == false && isPowered)
+        {
+            openSound.Play();
         }
 
         isOpened = isPowered;
