@@ -43,11 +43,17 @@ public class Orb : MonoBehaviour
         }
     }
 
-    public void OnCollisionEnter(Collision other)
+    public void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Orb hitted " + other.gameObject.name);
-        Hit();
+        Debug.Log("Orb hitted " + collision.gameObject.name);
+
+        if (collision.gameObject.tag == "Enemy")
+        {
+            collision.gameObject.GetComponent<EnemyController>().HitByOrb(this, collision);
+        }
+
         fakingGravityUntil = 0;
+        Hit();
     }
 
     public void SetPlayerRef(Character character)
@@ -77,12 +83,6 @@ public class Orb : MonoBehaviour
         SetPhysics(true);
         isInHand = false;
         fakingGravityUntil = Time.time + fakingGravityTime;
-    }
-
-    public void EnemyHit()
-    {
-        //energyContainer.DrainEnergy(100);
-        Hit();
     }
 
     public void Hit()

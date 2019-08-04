@@ -152,55 +152,49 @@ public class EnemyController : MonoBehaviour
         this.target = target;
     }
 
+    public void HitByOrb(Orb orb, Collision collision)
+    {
+        // Calculate knockback
+        Vector3 knockback = Vector3.zero;
+
+        // if the ball is on the floor or bouncing, we don't take it into account
+        if (!orb.returningToHand && orb.GetRigidbody().velocity.magnitude > 2f)
+        {
+            foreach (ContactPoint contact in collision.contacts)
+            {
+                Debug.DrawRay(contact.point, contact.normal, Color.white);
+
+                knockback.x -= contact.normal.x;
+                knockback.z -= contact.normal.z;
+            }
+            knockback = knockback + Vector3.up;
+            knockback.Normalize();
+            knockback.Scale(new Vector3(knockbackDistance, knockbackDistance, knockbackDistance));
+
+            // apply knockback
+            m_Rigidbody.AddForce(knockback, ForceMode.VelocityChange);
+
+            // calculate effect depending on energy type
+            switch (orb.energyContainer.energyType)
+            {
+                case EnergyType.None:
+                case EnergyType.Key:
+                    Knocked();
+                    break;
+                case EnergyType.Light:
+                    Stunned();
+                    break;
+                case EnergyType.Damage:
+                    StartDying();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Orb")
-        {
-            Orb orb = collision.gameObject.GetComponent<Orb>();
-            
-            // Calculate knockback
-            Vector3 knockback = Vector3.zero;
-            
-            // if the ball is on the floor or bouncing, we don't take it into account
-            if (!orb.returningToHand && orb.GetRigidbody().velocity.magnitude > 2f)
-            {
-
-                foreach (ContactPoint contact in collision.contacts)
-                {
-                    Debug.DrawRay(contact.point, contact.normal, Color.white);
-
-                    knockback.x += contact.normal.x;
-                    knockback.z += contact.normal.z;
-
-                }
-                knockback = knockback + Vector3.up;
-                knockback.Normalize();
-                knockback.Scale(new Vector3(knockbackDistance, knockbackDistance, knockbackDistance));
-                
-                // apply knockback
-                m_Rigidbody.AddForce(knockback, ForceMode.VelocityChange);
-
-                // calculate effect depending on energy type
-                switch (orb.energyContainer.energyType)
-                {
-                    case EnergyType.None:
-                    case EnergyType.Key:
-                        Knocked();
-                        break;
-                    case EnergyType.Light:
-                        Stunned();
-                        break;
-                    case EnergyType.Damage:
-                        StartDying();
-                        break;
-                    default:
-                        break;
-                }
-
-                orb.EnemyHit();
-            }
-            
-        }
         
     }
 
