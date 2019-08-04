@@ -20,7 +20,7 @@ public class Orb : MonoBehaviour
     private Character playerRef;
 
     public bool invocationStarted = false;
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -91,6 +91,11 @@ public class Orb : MonoBehaviour
         if(enabled)
         {
             energyContainer.DrainEnergy(100);
+
+            if(energyContainer.pickedFromFountain)
+            {
+                energyContainer.pickedFromFountain.ResetFountain();
+            }
 
             if (playerRef && !invocationStarted)
             {

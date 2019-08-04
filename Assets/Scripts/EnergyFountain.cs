@@ -8,6 +8,9 @@ public class EnergyFountain : Interactable
     private EnergyContainer m_EnergyContainer;
 
     public string hintRefillOrb = "Refill orb";
+    public bool singleUse = false;
+
+    private EnergyType energyType;
 
     // Start is called before the first frame update
     void Start()
@@ -32,5 +35,17 @@ public class EnergyFountain : Interactable
         Orb orbRef = player.GetOrb();
 
         orbRef.energyContainer.SetEnergy(m_EnergyContainer.energy, m_EnergyContainer.energyType);
+        orbRef.energyContainer.pickedFromFountain = this;
+
+        if(singleUse)
+        {
+            energyType = m_EnergyContainer.energyType;
+            m_EnergyContainer.DrainEnergy(100);
+        }
+    }
+
+    public void ResetFountain()
+    {
+        m_EnergyContainer.SetEnergy(100, energyType);
     }
 }

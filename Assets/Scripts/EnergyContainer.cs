@@ -27,6 +27,8 @@ public class EnergyContainer : MonoBehaviour
     public ParticleSystem particles;
     public ParticleSystem explosionParticles;
 
+    public EnergyFountain pickedFromFountain;
+
     public void Start()
     {
         RecalculateAspect();
