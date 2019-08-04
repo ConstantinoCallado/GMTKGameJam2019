@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -501,6 +501,7 @@ GameObject:
   - component: {fileID: 3413734105742034099}
   - component: {fileID: 1775623745}
   - component: {fileID: 1775623744}
+  - component: {fileID: 65328829}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -810,6 +811,22 @@ MonoBehaviour:
   delayToPickupOrb: 0.2
   interactableInRange: {fileID: 0}
   fadeInOutAnimator: {fileID: 72513319}
+  firstPersonController: {fileID: 0}
+  isAlive: 1
+--- !u!136 &65328829
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3413734105737551187}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.3
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &3308862802026852975
 PrefabInstance:
   m_ObjectHideFlags: 0

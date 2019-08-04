@@ -88,12 +88,15 @@ public class Orb : MonoBehaviour
 
     public void Hit()
     {
-        energyContainer.DrainEnergy(100);
-
-        if(playerRef && !invocationStarted)
+        if(enabled)
         {
-            invocationStarted = true;
-            StartCoroutine(InvokeOrbCorutine());
+            energyContainer.DrainEnergy(100);
+
+            if (playerRef && !invocationStarted)
+            {
+                invocationStarted = true;
+                StartCoroutine(InvokeOrbCorutine());
+            }
         }
     }
 
