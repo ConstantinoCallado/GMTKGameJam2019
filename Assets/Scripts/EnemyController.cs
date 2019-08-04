@@ -55,6 +55,8 @@ public class EnemyController : MonoBehaviour
     private float m_attackTime;
     private float m_restingEndTime;
 
+    public AudioSource audioSource;
+
     private void Start()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
@@ -247,6 +249,7 @@ public class EnemyController : MonoBehaviour
 
     public void HitByOrb(Orb orb, Collision collision)
     {
+        audioSource.Play();
         // calculate effect depending on energy type
         switch (orb.energyContainer.energyType)
         {
@@ -355,6 +358,8 @@ public class EnemyController : MonoBehaviour
 
     public void Attack()
     {
+        audioSource.Play();
+
         // if player is in the attack area, give damage
         if (attackArea != null && attackArea.active && target != null && target.tag == "Player")
             target.gameObject.GetComponent<Character>().TakeDamage();
