@@ -283,7 +283,7 @@ public class EnemyController : MonoBehaviour
                 knockback.z -= contact.normal.z;
                 knockback.y = contact.normal.y;
             }
-            knockback = knockback + Vector3.up;
+            //knockback = knockback + Vector3.up;
             knockback.Normalize();
             knockback.Scale(new Vector3(knockbackDistance, knockbackDistance, knockbackDistance));
 
