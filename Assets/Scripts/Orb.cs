@@ -90,18 +90,23 @@ public class Orb : MonoBehaviour
     {
         if(enabled)
         {
-            energyContainer.DrainEnergy(100);
-
-            if(energyContainer.pickedFromFountain)
-            {
-                energyContainer.pickedFromFountain.ResetFountain();
-            }
+            Explode();
 
             if (playerRef && !invocationStarted)
             {
                 invocationStarted = true;
                 StartCoroutine(InvokeOrbCorutine());
             }
+        }
+    }
+
+    public void Explode()
+    {
+        energyContainer.DrainEnergy(100);
+
+        if (energyContainer.pickedFromFountain)
+        {
+            energyContainer.pickedFromFountain.ResetFountain();
         }
     }
 

@@ -1019,6 +1019,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1042952229 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 143279728, guid: 72f1ac110877e28448cb6a279f8766a7,
+    type: 3}
+  m_PrefabInstance: {fileID: 3308862800811363106}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1172382709
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1612,6 +1618,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1775623744, guid: 72f1ac110877e28448cb6a279f8766a7, type: 3}
+      propertyPath: damageFadeAnimator
+      value: 
+      objectReference: {fileID: 1042952229}
     - target: {fileID: 1824336020, guid: 72f1ac110877e28448cb6a279f8766a7, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0

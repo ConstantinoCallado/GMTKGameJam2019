@@ -18,6 +18,7 @@ public class Character : MonoBehaviour
     public Interactable interactableInRange;
 
     public Animator fadeInOutAnimator;
+    public Animator damageFadeAnimator;
     public FirstPersonController firstPersonController;
     public bool isAlive = true;
 
@@ -161,10 +162,18 @@ public class Character : MonoBehaviour
         return orb;
     }
 
-    public void TakeDamage()
+    public void TakeDamage(float amount = 1)
     {
+        damageFadeAnimator.SetTrigger("TakeDamage");
         Debug.Log("Took damage!");
-        Kill();
+
+        if(orb && orb.isInHand && orb.energyContainer.energy > 0)
+        {
+            orb.Explode();
+            amount -= 1;
+        }
+
+        if(amount > 0) Kill();
     }
 
     public void TransitionToScene(string sceneName)
