@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Character : MonoBehaviour
 {
@@ -15,10 +16,13 @@ public class Character : MonoBehaviour
 
     public Interactable interactableInRange;
 
+    public Animator fadeInOutAnimator;
+
     // Start is called before the first frame update
     void Start()
     {
         camera = GetComponentInChildren<Camera>();
+        fadeInOutAnimator.SetTrigger("FadeOut");
     }
 
     // Update is called once per frame
@@ -156,6 +160,18 @@ public class Character : MonoBehaviour
     public void TakeDamage()
     {
         Debug.Log("Took damage!");
+    }
+
+    public void TransitionToScene(string sceneName)
+    {
+        StartCoroutine(TransitionToSceneCoroutine(sceneName));
+    }
+
+    IEnumerator TransitionToSceneCoroutine(string sceneName)
+    {
+        fadeInOutAnimator.SetTrigger("FadeIn");
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(sceneName);
     }
 }
 
