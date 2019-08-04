@@ -34,6 +34,11 @@ public class EnemyController : MonoBehaviour
 
     public EnemyAttackArea attackArea;
 
+    [SerializeField] public bool isGuard = false;
+    public Transform guardingSpot;
+    public float guardingMinRadius = 2f;
+    public float guardingMaxRadius = 6f;
+
     Rigidbody m_Rigidbody;
     Animator m_Animator;
     EnemyState m_state;
@@ -70,32 +75,73 @@ public class EnemyController : MonoBehaviour
             case EnemyState.Idle:
                 if (target != null)
                 {
-                    float targetDistance = Vector3.Distance(target.transform.position, transform.position);
+                    float distanceToPlayer = Vector3.Distance(target.transform.position, transform.position);
 
-                    if (targetDistance <= maximumSeekDistance)
+                    if (!isGuard || guardingSpot == null)
                     {
-                        m_state = EnemyState.SeekingPlayer;
-                        m_Animator.SetBool("playerIsVisible", true);
+                        if (distanceToPlayer <= maximumSeekDistance)
+                        {
+                            m_state = EnemyState.SeekingPlayer;
+                            m_Animator.SetBool("seeking", true);
+                        }
+                    }
+                    else
+                    {
+                        float distanceToSpot = Vector3.Distance(guardingSpot.transform.position, transform.position);
+                        float playerDistanceToSpot = Vector3.Distance(guardingSpot.transform.position, target.transform.position);
+
+                        // The player is visible
+                        if (distanceToPlayer <= maximumSeekDistance)
+                        {
+                            // The player is inside the guarding range
+                            if (playerDistanceToSpot <= guardingMaxRadius)
+                            {
+                                m_state = EnemyState.SeekingPlayer;
+                                m_Animator.SetBool("seeking", true);
+                            }
+                            else
+                            {
+                                RotateTowards(target);
+                            }
+                        }
+                        // if player is out of range I go back the spot
+                        else if (distanceToPlayer > maximumSeekDistance && distanceToSpot > guardingMinRadius)
+                        {
+                            m_state = EnemyState.SeekingSpot;
+                            m_Animator.SetBool("seeking", true);
+                        }
                     }
                 }
                 break;
             case EnemyState.SeekingPlayer:
                 if (target != null)
                 {
-                    float targetDistance = Vector3.Distance(target.transform.position, transform.position);
-                    
-                    if(agent.enabled)
-                        agent.SetDestination(target.position);
+                    float distanceToPlayer = Vector3.Distance(target.transform.position, transform.position);
+                    float playerDistanceToSpot = Vector3.Distance(guardingSpot.transform.position, target.transform.position);
 
-                    if (targetDistance > maximumSeekDistance)
+                    if (agent.enabled)
+                        agent.SetDestination(target.position);
+                    
+                    // enemy is guard and player is too far from the guarding spot 
+                    if (isGuard && guardingSpot != null && playerDistanceToSpot > guardingMaxRadius)
                     {
                         m_state = EnemyState.Idle;
-                        m_Animator.SetBool("playerIsVisible", false);
+                        m_Animator.SetBool("seeking", false);
                     }
-                    else if (targetDistance < attackingDistance)
+                    // player is out of sight
+                    else if (distanceToPlayer > maximumSeekDistance)
+                    {
+                        m_state = EnemyState.Idle;
+                        m_Animator.SetBool("seeking", false);
+                    }
+                    // player is in reach for an attack
+                    else if (distanceToPlayer < attackingDistance)
                     {
                         m_preAttackTime = Time.time + preAttackDuration;
                         m_state = EnemyState.PreAttacking;
+                        m_Animator.SetBool("seeking", false);
+
+                        RotateTowards(target);
                     }
                 }
 
@@ -144,6 +190,20 @@ public class EnemyController : MonoBehaviour
                 }
                 break;
             case EnemyState.SeekingSpot:
+                if (guardingSpot != null)
+                {
+                    float distance = Vector3.Distance(guardingSpot.transform.position, transform.position);
+
+                    if (agent.enabled)
+                        agent.SetDestination(guardingSpot.transform.position);
+
+                    if(distance < guardingMinRadius)
+                        m_state = EnemyState.Idle;
+                }
+                else
+                {
+                    m_state = EnemyState.Idle;
+                }
 
                 break;
             case EnemyState.Dying:
@@ -285,5 +345,12 @@ public class EnemyController : MonoBehaviour
 
 		if(m_state != EnemyState.Knocked && m_state != EnemyState.Stunned)
 			m_state = EnemyState.AttackResting;
+    }
+
+    private void RotateTowards(Transform target)
+    {
+        Vector3 direction = (target.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * agent.angularSpeed);
     }
 }

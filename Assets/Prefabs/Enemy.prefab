@@ -313,7 +313,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   target: {fileID: 0}
-  maximumSeekDistance: 30
+  maximumSeekDistance: 20
   preAttackDuration: 0.4
   attackingDistance: 1.75
   attackRestingTime: 1.5
@@ -323,6 +323,10 @@ MonoBehaviour:
   knockbackTime: 1
   initialState: 0
   attackArea: {fileID: 8829153686915734244}
+  isGuard: 0
+  guardingSpot: {fileID: 0}
+  guardingMinRadius: 2
+  guardingMaxRadius: 6
   m_GroundCheckDistance: 2
 --- !u!1 &6194978573854755309
 GameObject:
