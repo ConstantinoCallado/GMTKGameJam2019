@@ -59,6 +59,7 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(m_state);
         switch (m_state)
         {
             case EnemyState.Idle:
@@ -154,6 +155,23 @@ public class EnemyController : MonoBehaviour
 
     public void HitByOrb(Orb orb, Collision collision)
     {
+        // calculate effect depending on energy type
+        switch (orb.energyContainer.energyType)
+        {
+            case EnergyType.None:
+            case EnergyType.Key:
+                Knocked();
+                break;
+            case EnergyType.Light:
+                Stunned();
+                break;
+            case EnergyType.Damage:
+                StartDying();
+                break;
+            default:
+                break;
+        }
+
         // Calculate knockback
         Vector3 knockback = Vector3.zero;
 
@@ -173,23 +191,6 @@ public class EnemyController : MonoBehaviour
 
             // apply knockback
             m_Rigidbody.AddForce(knockback, ForceMode.VelocityChange);
-
-            // calculate effect depending on energy type
-            switch (orb.energyContainer.energyType)
-            {
-                case EnergyType.None:
-                case EnergyType.Key:
-                    Knocked();
-                    break;
-                case EnergyType.Light:
-                    Stunned();
-                    break;
-                case EnergyType.Damage:
-                    StartDying();
-                    break;
-                default:
-                    break;
-            }
         }
     }
 
