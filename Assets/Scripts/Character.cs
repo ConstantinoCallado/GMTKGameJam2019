@@ -59,6 +59,7 @@ public class Character : MonoBehaviour
         if (other.gameObject.tag == "Orb" && coolDownToPickupOrb < Time.time)
         {
             orb = other.gameObject.GetComponent<Orb>();
+            orb.SetPlayerRef(this);
             PickUpOrb();
         }
     }
@@ -99,12 +100,15 @@ public class Character : MonoBehaviour
         orb.transform.parent = orbSocket;
     }
 
-    void InvokeOrb()
+    public void InvokeOrb()
     {
-        orb.SetPhysics(false);
-        orb.returningToHand = true;
+        if (!orb.returningToHand)
+        {
+            orb.SetPhysics(false);
+            orb.returningToHand = true;
 
-        StartCoroutine(CorutineInvokeOrb());
+            StartCoroutine(CorutineInvokeOrb());
+        }
     }
 
     public IEnumerator CorutineInvokeOrb()

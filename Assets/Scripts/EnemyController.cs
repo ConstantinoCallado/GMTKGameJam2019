@@ -157,7 +157,7 @@ public class EnemyController : MonoBehaviour
         if (collision.gameObject.tag == "Orb")
         {
             Orb orb = collision.gameObject.GetComponent<Orb>();
-
+            
             // Calculate knockback
             Vector3 knockback = Vector3.zero;
             
@@ -173,6 +173,7 @@ public class EnemyController : MonoBehaviour
                     knockback.z += contact.normal.z;
 
                 }
+                knockback = knockback + Vector3.up;
                 knockback.Normalize();
                 knockback.Scale(new Vector3(knockbackDistance, knockbackDistance, knockbackDistance));
                 
@@ -195,6 +196,8 @@ public class EnemyController : MonoBehaviour
                     default:
                         break;
                 }
+
+                orb.EnemyHit();
             }
             
         }

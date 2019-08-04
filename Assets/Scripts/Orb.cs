@@ -16,6 +16,7 @@ public class Orb : MonoBehaviour
 
     public float fakingGravityTime = 0.3f;
     private float fakingGravityUntil;
+    private Character playerRef;
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +47,11 @@ public class Orb : MonoBehaviour
         fakingGravityUntil = 0;
     }
 
+    public void SetPlayerRef(Character character)
+    {
+        playerRef = character;
+    }
+
     public Rigidbody GetRigidbody()
     {
         return rigidbody;
@@ -68,5 +74,22 @@ public class Orb : MonoBehaviour
         SetPhysics(true);
         isInHand = false;
         fakingGravityUntil = Time.time + fakingGravityTime;
+    }
+
+    public void EnemyHit()
+    {
+        energyContainer.DrainEnergy(100);
+        Hit();
+    }
+
+    public void Hit()
+    {
+        StartCoroutine(InvokeOrbCorutine());
+    }
+
+    public IEnumerator InvokeOrbCorutine()
+    {
+        yield return new WaitForSeconds(0.3f);
+        playerRef.InvokeOrb();
     }
 }
