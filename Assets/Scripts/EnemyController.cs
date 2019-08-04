@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public enum EnemyState { Idle, SeekingPlayer, SeekingSpot, Attacking, Knocked, Stunned, Falling, Dying };
+public enum EnemyState { Idle, SeekingPlayer, SeekingSpot, PreAttacking, Attacking, AttackResting, Knocked, Stunned, Falling, Dying };
 
 [RequireComponent(typeof (UnityEngine.AI.NavMeshAgent))]
 
@@ -16,7 +16,10 @@ public class EnemyController : MonoBehaviour
     public Transform target;                                        // target to aim for
 
     public float maximumSeekDistance;
+
+    public float preAttackDuration;
     public float attackingDistance;
+    public float attackRestingTime;
 
     // stun
     public float stunTime;
@@ -41,6 +44,8 @@ public class EnemyController : MonoBehaviour
 
     private float m_stunEndTime;
     private float m_knockbackEndTime;
+    private float m_preAttackTime;
+    private float m_restingEndTime;
 
     private void Start()
     {
@@ -89,8 +94,8 @@ public class EnemyController : MonoBehaviour
                     }
                     else if (targetDistance < attackingDistance)
                     {
-                        m_state = EnemyState.Attacking;
-                        m_Animator.SetTrigger("attack");
+                        m_preAttackTime = Time.time + preAttackDuration;
+                        m_state = EnemyState.PreAttacking;
                     }
                 }
 
@@ -122,8 +127,21 @@ public class EnemyController : MonoBehaviour
                     m_state = EnemyState.Idle;
                 }
                 break;
+            case EnemyState.PreAttacking:
+                if (m_preAttackTime < Time.time)
+                {
+                    m_Animator.SetTrigger("attack");
+                    m_state = EnemyState.Attacking;
+                }
+                break;
             case EnemyState.Attacking:
                 // nothing at the moment
+                break;
+            case EnemyState.AttackResting:
+                if (m_restingEndTime < Time.time)
+                {
+                    m_state = EnemyState.Idle;
+                }
                 break;
             case EnemyState.SeekingSpot:
 
@@ -160,10 +178,12 @@ public class EnemyController : MonoBehaviour
         {
             case EnergyType.None:
             case EnergyType.Key:
-                Knocked();
+				if(m_state != EnemyState.Stunned)
+					Knocked();
                 break;
             case EnergyType.Light:
-                Stunned();
+				if(m_state != EnemyState.Dying)
+					Stunned();
                 break;
             case EnergyType.Damage:
                 StartDying();
@@ -176,7 +196,7 @@ public class EnemyController : MonoBehaviour
         Vector3 knockback = Vector3.zero;
 
         // if the ball is on the floor or bouncing, we don't take it into account
-        if (!orb.returningToHand && orb.GetRigidbody().velocity.magnitude > 2f)
+        if (!orb.isInHand && !orb.returningToHand && orb.GetRigidbody().velocity.magnitude > 2f)
         {
             foreach (ContactPoint contact in collision.contacts)
             {
@@ -184,6 +204,7 @@ public class EnemyController : MonoBehaviour
 
                 knockback.x -= contact.normal.x;
                 knockback.z -= contact.normal.z;
+                knockback.y = contact.normal.y;
             }
             knockback = knockback + Vector3.up;
             knockback.Normalize();
@@ -259,7 +280,10 @@ public class EnemyController : MonoBehaviour
         // if player is in the attack area, give damage
         if (attackArea != null && attackArea.active && target != null && target.tag == "Player")
             target.gameObject.GetComponent<Character>().TakeDamage();
+        
+        m_restingEndTime = Time.time + attackRestingTime;
 
-        m_state = EnemyState.Idle;
+		if(m_state != EnemyState.Knocked && m_state != EnemyState.Stunned)
+			m_state = EnemyState.AttackResting;
     }
 }
