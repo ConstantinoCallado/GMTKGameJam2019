@@ -250,7 +250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae9f20b11ad2dd478a2bc439e093580, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  energyType: 1
+  energyType: 0
   maxEnergyPool: 100
   energy: 100
   orbMesh: {fileID: 6827791891646884146}
