@@ -106,7 +106,7 @@ public class EnergyContainer : MonoBehaviour
                 orbLight.enabled = true;
                 orbLight.color = new Color(1, 1, 1);
                 orbLight.intensity = 1.5f;
-                orbLight.range = 9;
+                orbLight.range = 15;
                 ActivateHalo("Light");
                 if (particles)
                 {
@@ -125,7 +125,7 @@ public class EnergyContainer : MonoBehaviour
                 orbLight.enabled = true;
                 orbLight.color = new Color(0.75f, 0, 0.09f);
                 orbLight.intensity = 1;
-                orbLight.range = 6;
+                orbLight.range = 8;
                 ActivateHalo("Damage");
                 if (particles)
                 {
@@ -144,7 +144,7 @@ public class EnergyContainer : MonoBehaviour
                 orbLight.enabled = true;
                 orbLight.color = new Color(1, 0.92f, 0.34f);
                 orbLight.intensity = 1;
-                orbLight.range = 6;
+                orbLight.range = 8;
                 ActivateHalo("Key");
                 if (particles)
                 {
