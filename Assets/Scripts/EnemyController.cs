@@ -33,6 +33,7 @@ public class EnemyController : MonoBehaviour
     public EnemyState initialState;
 
     public EnemyAttackArea attackArea;
+    public ParticleSystem stunParticles;
 
     [SerializeField] public bool isGuard = false;
     public Transform guardingSpot;
@@ -170,6 +171,7 @@ public class EnemyController : MonoBehaviour
                     m_Animator.SetBool("stunned", false);
                     m_Rigidbody.isKinematic = true;
                     agent.enabled = true;
+                    stunParticles.enableEmission = false;
                     m_state = EnemyState.Idle;
                 }
                 break;
@@ -317,6 +319,8 @@ public class EnemyController : MonoBehaviour
 
         m_state = EnemyState.Stunned;
         m_Animator.SetBool("stunned", true);
+
+        stunParticles.enableEmission = true;
 
         m_stunEndTime = Time.time + stunTime;
     }

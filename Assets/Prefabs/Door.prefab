@@ -197,7 +197,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3671634800402447856}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 528c3b669ce90d447ab6e6cfb1a7b9f7, type: 3}
   m_Name: 
@@ -270,7 +270,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2fa123f81e0b3db46896db7713c83f8c, type: 2}
+  - {fileID: 2100000, guid: f1e00bd93715cfa42860106cda65e914, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

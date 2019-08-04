@@ -11,7 +11,7 @@ public class DeathZone : MonoBehaviour
         if (collider.gameObject.tag is "Player")
         {
             // if player then tell the player to do its FallDeath
-            collider.gameObject.GetComponent<Character>().Kill();
+            collider.gameObject.GetComponent<Character>().TakeDamage(100);
         }
         else if (destroyNonPlayerObjects && collider.gameObject.tag is "Enemy")
         { // not playe so just kill object - could be falling enemy for example

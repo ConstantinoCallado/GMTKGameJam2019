@@ -34,11 +34,16 @@ public class EnergyFountain : Interactable
     {
         Orb orbRef = player.GetOrb();
 
+        if (orbRef.energyContainer.pickedFromFountain)
+        {
+            orbRef.energyContainer.pickedFromFountain.ResetFountain();
+        }
+
         orbRef.energyContainer.SetEnergy(m_EnergyContainer.energy, m_EnergyContainer.energyType);
-        orbRef.energyContainer.pickedFromFountain = this;
 
         if(singleUse)
         {
+            orbRef.energyContainer.pickedFromFountain = this;
             energyType = m_EnergyContainer.energyType;
             m_EnergyContainer.DrainEnergy(100);
         }
