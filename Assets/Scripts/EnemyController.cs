@@ -19,6 +19,7 @@ public class EnemyController : MonoBehaviour
 
     public float preAttackDuration;
     public float attackingDistance;
+    public float attackTime = 0.1f;
     public float attackRestingTime;
 
     // stun
@@ -51,6 +52,7 @@ public class EnemyController : MonoBehaviour
     private float m_stunEndTime;
     private float m_knockbackEndTime;
     private float m_preAttackTime;
+    private float m_attackTime;
     private float m_restingEndTime;
 
     private void Start()
@@ -139,8 +141,9 @@ public class EnemyController : MonoBehaviour
                         m_state = EnemyState.Idle;
                         m_Animator.SetBool("seeking", false);
                     }
+                    
                     // player is in reach for an attack
-                    else if (distanceToPlayer < attackingDistance)
+                    if (distanceToPlayer < attackingDistance)
                     {
                         m_preAttackTime = Time.time + preAttackDuration;
                         m_state = EnemyState.PreAttacking;
@@ -182,12 +185,17 @@ public class EnemyController : MonoBehaviour
             case EnemyState.PreAttacking:
                 if (m_preAttackTime < Time.time)
                 {
-                    m_Animator.SetTrigger("attack");
+                    m_attackTime = Time.time + attackTime;
                     m_state = EnemyState.Attacking;
+                    m_Animator.SetTrigger("attack");
                 }
                 break;
             case EnemyState.Attacking:
-                // nothing at the moment
+                RotateTowards(target);
+                if (m_attackTime < Time.time)
+                {
+                    Attack();
+                }
                 break;
             case EnemyState.AttackResting:
                 if (m_restingEndTime < Time.time)
@@ -203,7 +211,7 @@ public class EnemyController : MonoBehaviour
                     if (agent.enabled)
                         agent.SetDestination(guardingSpot.transform.position);
 
-                    if(distance < guardingMinRadius)
+                    if(distance < Math.Max(guardingMinRadius, agent.stoppingDistance))
                         m_state = EnemyState.Idle;
                 }
                 else
@@ -279,6 +287,8 @@ public class EnemyController : MonoBehaviour
             // apply knockback
             m_Rigidbody.AddForce(knockback, ForceMode.VelocityChange);
         }
+        
+        m_Animator.ResetTrigger("attack");
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -359,6 +369,6 @@ public class EnemyController : MonoBehaviour
     {
         Vector3 direction = (target.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * agent.angularSpeed);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * agent.angularSpeed / 10f);
     }
 }
