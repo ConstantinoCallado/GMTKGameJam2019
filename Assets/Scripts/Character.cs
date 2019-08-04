@@ -24,6 +24,8 @@ public class Character : MonoBehaviour
 
     public GameObject rightMouseHint;
 
+    public AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -179,6 +181,8 @@ public class Character : MonoBehaviour
             orb.Explode();
             amount -= 1;
         }
+
+        audioSource.Play();
 
         if(amount > 0) Kill();
     }

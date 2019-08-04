@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public void Start()
     {
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         firstPersonController = GetComponent<FirstPersonController>();
         character = GetComponent<Character>();
     }

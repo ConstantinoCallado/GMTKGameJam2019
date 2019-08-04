@@ -10,6 +10,7 @@ public class EnergyStorage : Interactable
     public string hintRefillOrb = "Refill orb";
     public string hintStoreEnergy = "Store energy";
     public string hintSwapEnergy = "Swap energy";
+    public AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +32,7 @@ public class EnergyStorage : Interactable
 
     public override void Interact(Character player)
     {
+        audioSource.Play();
         Orb orbRef = player.GetOrb();
 
         EnergyType storedEnergyType = m_EnergyContainer.energyType;
