@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class Character : MonoBehaviour
 {
@@ -15,10 +17,16 @@ public class Character : MonoBehaviour
 
     public Interactable interactableInRange;
 
+    public Animator fadeInOutAnimator;
+    public FirstPersonController firstPersonController;
+    public bool isAlive = true;
+
     // Start is called before the first frame update
     void Start()
     {
         camera = GetComponentInChildren<Camera>();
+        firstPersonController = GetComponent<FirstPersonController>();
+        fadeInOutAnimator.SetTrigger("FadeOut");
     }
 
     // Update is called once per frame
@@ -47,7 +55,7 @@ public class Character : MonoBehaviour
         {
             Debug.Log("Press E to interact with " + interactableInRange.gameObject.name);
 
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetMouseButtonDown(1))
             {
                 interactableInRange.Interact(this);
             }
@@ -56,7 +64,7 @@ public class Character : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Orb" && coolDownToPickupOrb < Time.time)
+        if (other.gameObject.tag == "Orb" && coolDownToPickupOrb < Time.time && isAlive)
         {
             orb = other.gameObject.GetComponent<Orb>();
             orb.SetPlayerRef(this);
@@ -102,7 +110,7 @@ public class Character : MonoBehaviour
 
     public void InvokeOrb()
     {
-        if (!orb.returningToHand)
+        if (!orb.returningToHand && isAlive)
         {
             orb.SetPhysics(false);
             orb.returningToHand = true;
@@ -156,6 +164,52 @@ public class Character : MonoBehaviour
     public void TakeDamage()
     {
         Debug.Log("Took damage!");
+        Kill();
+    }
+
+    public void TransitionToScene(string sceneName)
+    {
+        StartCoroutine(TransitionToSceneCoroutine(sceneName));
+    }
+
+    IEnumerator TransitionToSceneCoroutine(string sceneName)
+    {
+        fadeInOutAnimator.SetTrigger("FadeIn");
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(sceneName);
+    }
+
+    public void Kill()
+    {
+        if (!isAlive) return;
+        isAlive = false;
+
+        if(orb && orb.isInHand)
+        {
+            orb.enabled = false;
+            orb.transform.parent = null;
+            orb.SetPhysics(true);
+        }
+
+        Destroy(firstPersonController);
+        Destroy(GetComponent<CharacterController>());
+
+        Rigidbody rigidbody = GetComponent<Rigidbody>();
+        rigidbody.isKinematic = false;
+        rigidbody.AddTorque(transform.forward * 2, ForceMode.VelocityChange);
+        rigidbody.AddForce(Vector3.up * 5, ForceMode.VelocityChange);
+
+        this.enabled = false;
+
+        StartCoroutine(CorutineRetry());
+    }
+
+    public IEnumerator CorutineRetry()
+    {
+        yield return new WaitForSeconds(1.5f);
+        fadeInOutAnimator.SetTrigger("fadeIn");
+        yield return new WaitForSeconds(1);
+        TransitionToScene(SceneManager.GetActiveScene().name);
     }
 }
 

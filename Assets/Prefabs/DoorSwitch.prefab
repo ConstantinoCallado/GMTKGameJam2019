@@ -271,8 +271,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.83
-  m_Height: 3.73
+  m_Radius: 1.2
+  m_Height: 4
   m_Direction: 1
   m_Center: {x: 0, y: -0.68, z: -0.39}
 --- !u!1 &8011039759372361137
@@ -395,6 +395,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: e167f2dca1f3f1c4cb6b554ce9161991, type: 2}
+    - target: {fileID: -1504981713932161579, guid: 6759ac395b9117b4199715f2be4f4bdc,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5670051849186363452, guid: 6759ac395b9117b4199715f2be4f4bdc,
         type: 3}
       propertyPath: m_RootOrder
@@ -405,6 +410,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 32e9c6ee285dd7e4d9b520598efce573, type: 2}
+    - target: {fileID: 4812042022646405641, guid: 6759ac395b9117b4199715f2be4f4bdc,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6759ac395b9117b4199715f2be4f4bdc, type: 3}
 --- !u!4 &6260788924140800412 stripped

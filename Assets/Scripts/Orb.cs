@@ -20,7 +20,7 @@ public class Orb : MonoBehaviour
     private Character playerRef;
 
     public bool invocationStarted = false;
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +46,7 @@ public class Orb : MonoBehaviour
     public void OnCollisionEnter(Collision collision)
     {
         Debug.Log("Orb hitted " + collision.gameObject.name);
+
 
         if (collision.gameObject.tag == "Enemy")
         {
@@ -87,12 +88,20 @@ public class Orb : MonoBehaviour
 
     public void Hit()
     {
-        energyContainer.DrainEnergy(100);
-
-        if(playerRef && !invocationStarted)
+        if(enabled)
         {
-            invocationStarted = true;
-            StartCoroutine(InvokeOrbCorutine());
+            energyContainer.DrainEnergy(100);
+
+            if(energyContainer.pickedFromFountain)
+            {
+                energyContainer.pickedFromFountain.ResetFountain();
+            }
+
+            if (playerRef && !invocationStarted)
+            {
+                invocationStarted = true;
+                StartCoroutine(InvokeOrbCorutine());
+            }
         }
     }
 

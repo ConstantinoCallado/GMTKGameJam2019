@@ -6,17 +6,16 @@ public class DeathZone : MonoBehaviour
 {
     public bool destroyNonPlayerObjects = true;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collider)
     {
-        if (collision.gameObject.tag is "Player")
+        if (collider.gameObject.tag is "Player")
         {
             // if player then tell the player to do its FallDeath
-            //TO DO
-            //Destroy(gameObject);
+            collider.gameObject.GetComponent<Character>().Kill();
         }
-        else if (destroyNonPlayerObjects && collision.gameObject.tag is "Enemy")
+        else if (destroyNonPlayerObjects && collider.gameObject.tag is "Enemy")
         { // not playe so just kill object - could be falling enemy for example
-            Object.Destroy(collision.gameObject);
+            Object.Destroy(collider.gameObject);
         }
     }
 }

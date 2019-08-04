@@ -35,9 +35,12 @@ public class EnergyStorage : Interactable
 
         EnergyType storedEnergyType = m_EnergyContainer.energyType;
         float storedEnergyValue = m_EnergyContainer.energy;
+        EnergyFountain pickedFromFountain = m_EnergyContainer.pickedFromFountain;
 
         m_EnergyContainer.SetEnergy(orbRef.energyContainer.energy, orbRef.energyContainer.energyType);
+        m_EnergyContainer.pickedFromFountain = orbRef.energyContainer.pickedFromFountain;
 
         orbRef.energyContainer.SetEnergy(storedEnergyValue, storedEnergyType);
+        orbRef.energyContainer.pickedFromFountain = pickedFromFountain;
     }
 }
