@@ -214,7 +214,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1213106653, guid: cfa25b93b3537f3428bdfa9893244e2d, type: 3}
       propertyPath: m_Range
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2045813801855084341, guid: cfa25b93b3537f3428bdfa9893244e2d,
         type: 3}
@@ -412,6 +412,10 @@ PrefabInstance:
     - target: {fileID: 1213106653, guid: cfa25b93b3537f3428bdfa9893244e2d, type: 3}
       propertyPath: m_Color.b
       value: 0.34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1213106653, guid: cfa25b93b3537f3428bdfa9893244e2d, type: 3}
+      propertyPath: m_Range
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2045813801855084341, guid: cfa25b93b3537f3428bdfa9893244e2d,
         type: 3}
@@ -648,7 +652,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1213106653, guid: cfa25b93b3537f3428bdfa9893244e2d, type: 3}
       propertyPath: m_Range
-      value: 9
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2045813801855084341, guid: cfa25b93b3537f3428bdfa9893244e2d,
         type: 3}
@@ -1331,7 +1335,7 @@ PrefabInstance:
     - target: {fileID: 8081676240159603069, guid: ce0b16454752d1d4997b71714bca9f35,
         type: 3}
       propertyPath: m_Range
-      value: 9
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8081676240159603069, guid: ce0b16454752d1d4997b71714bca9f35,
         type: 3}
@@ -1533,6 +1537,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 966061159823225590, guid: 735a22b2af940be4f922fb68271d2b34,
+        type: 3}
+      propertyPath: m_Range
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 735a22b2af940be4f922fb68271d2b34, type: 3}
@@ -1872,7 +1881,7 @@ PrefabInstance:
     - target: {fileID: 8081676240159603069, guid: ce0b16454752d1d4997b71714bca9f35,
         type: 3}
       propertyPath: m_Range
-      value: 9
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8081676240159603069, guid: ce0b16454752d1d4997b71714bca9f35,
         type: 3}
