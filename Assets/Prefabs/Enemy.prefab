@@ -320,7 +320,7 @@ MonoBehaviour:
   attackTime: 0.1
   attackRestingTime: 0.5
   stunTime: 20
-  knockbackDistance: 8.5
+  knockbackDistance: 6
   knockbackSpeed: 8
   knockbackTime: 0.75
   initialState: 0

@@ -230,7 +230,7 @@ PrefabInstance:
     - target: {fileID: 2683263342827306170, guid: ce0b16454752d1d4997b71714bca9f35,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -21.93
+      value: -23.01
       objectReference: {fileID: 0}
     - target: {fileID: 2683263342827306170, guid: ce0b16454752d1d4997b71714bca9f35,
         type: 3}
@@ -1239,6 +1239,11 @@ PrefabInstance:
       propertyPath: attackRestingTime
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6194978573695768769, guid: eeed644fa6f73f94bb9e015c1e4d1fe9,
+        type: 3}
+      propertyPath: guardingMaxRadius
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eeed644fa6f73f94bb9e015c1e4d1fe9, type: 3}
 --- !u!4 &83949714 stripped
@@ -1872,7 +1877,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 7.71e-43, y: 1.84e-43, z: 0, w: -1.012729e-12}
+  m_BoundingSphereOverride: {x: 0, y: 4.5e-44, z: 0, w: 9.1835e-41}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -2382,7 +2387,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: -56.96, z: 2.84, w: 40.343327}
+  m_BoundingSphereOverride: {x: 1.102026e-39, y: 1.653039e-39, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -3533,7 +3538,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 9.1835e-41, z: 2.0387483e-38, w: 7.181536e-38}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -3703,7 +3708,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 5.02e-43, y: NaN, z: 5e-43, w: 1.511042e+24}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -4882,7 +4887,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 5.02e-43, y: NaN, z: 5e-43, w: 1.511042e+24}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -5556,7 +5561,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: -0.00027611735, y: -3.7735302e+32, z: 3.1e-44, w: 2.45e-43}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -7988,11 +7993,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6194978573695768768, guid: eeed644fa6f73f94bb9e015c1e4d1fe9,
-        type: 3}
-      propertyPath: m_Speed
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 6194978573695768769, guid: eeed644fa6f73f94bb9e015c1e4d1fe9,
         type: 3}
       propertyPath: guardingSpot
@@ -8027,6 +8027,11 @@ PrefabInstance:
         type: 3}
       propertyPath: guardingMaxRadius
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6194978573695768768, guid: eeed644fa6f73f94bb9e015c1e4d1fe9,
+        type: 3}
+      propertyPath: m_Speed
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eeed644fa6f73f94bb9e015c1e4d1fe9, type: 3}
@@ -10008,11 +10013,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6194978573695768768, guid: eeed644fa6f73f94bb9e015c1e4d1fe9,
-        type: 3}
-      propertyPath: m_Speed
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 6194978573695768769, guid: eeed644fa6f73f94bb9e015c1e4d1fe9,
         type: 3}
       propertyPath: guardingSpot
@@ -10047,6 +10047,11 @@ PrefabInstance:
         type: 3}
       propertyPath: guardingMaxRadius
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6194978573695768768, guid: eeed644fa6f73f94bb9e015c1e4d1fe9,
+        type: 3}
+      propertyPath: m_Speed
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eeed644fa6f73f94bb9e015c1e4d1fe9, type: 3}
@@ -10305,7 +10310,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 7.71e-43, y: 1.39e-43, z: 0, w: -9.444555e-13}
+  m_BoundingSphereOverride: {x: -6.0338247e+13, y: 3.038333e+36, z: 4.193e-42, w: 2.31e-43}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -11615,11 +11620,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6194978573695768768, guid: eeed644fa6f73f94bb9e015c1e4d1fe9,
-        type: 3}
-      propertyPath: m_Speed
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 6194978573695768769, guid: eeed644fa6f73f94bb9e015c1e4d1fe9,
         type: 3}
       propertyPath: guardingSpot
@@ -11654,6 +11654,11 @@ PrefabInstance:
         type: 3}
       propertyPath: guardingMaxRadius
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6194978573695768768, guid: eeed644fa6f73f94bb9e015c1e4d1fe9,
+        type: 3}
+      propertyPath: m_Speed
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eeed644fa6f73f94bb9e015c1e4d1fe9, type: 3}
@@ -12094,6 +12099,11 @@ PrefabInstance:
         type: 3}
       propertyPath: attackRestingTime
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6194978573695768769, guid: eeed644fa6f73f94bb9e015c1e4d1fe9,
+        type: 3}
+      propertyPath: guardingMaxRadius
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eeed644fa6f73f94bb9e015c1e4d1fe9, type: 3}
@@ -12850,7 +12860,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 1.29e-43, z: 1.368e-42, w: 1.05e-43}
+  m_BoundingSphereOverride: {x: -0.00027611735, y: -3.7735302e+32, z: 3.1e-44, w: 2.45e-43}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -13403,7 +13413,7 @@ PrefabInstance:
     - target: {fileID: 2683263342827306170, guid: ce0b16454752d1d4997b71714bca9f35,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -21.93
+      value: -22.66
       objectReference: {fileID: 0}
     - target: {fileID: 2683263342827306170, guid: ce0b16454752d1d4997b71714bca9f35,
         type: 3}
@@ -15113,7 +15123,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 1.368e-42, y: 6e-44, z: 0, w: -1.5245314e-13}
+  m_BoundingSphereOverride: {x: -6.0338247e+13, y: 1.02e-43, z: 0, w: 3.4e-44}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -15189,11 +15199,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6194978573695768768, guid: eeed644fa6f73f94bb9e015c1e4d1fe9,
-        type: 3}
-      propertyPath: m_Speed
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 6194978573695768769, guid: eeed644fa6f73f94bb9e015c1e4d1fe9,
         type: 3}
       propertyPath: guardingSpot
@@ -15228,6 +15233,11 @@ PrefabInstance:
         type: 3}
       propertyPath: guardingMaxRadius
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6194978573695768768, guid: eeed644fa6f73f94bb9e015c1e4d1fe9,
+        type: 3}
+      propertyPath: m_Speed
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eeed644fa6f73f94bb9e015c1e4d1fe9, type: 3}
@@ -18052,14 +18062,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1824336020, guid: 72f1ac110877e28448cb6a279f8766a7, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3413734105747237043, guid: 72f1ac110877e28448cb6a279f8766a7,
         type: 3}
       propertyPath: m_WalkSpeed
       value: 6.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1824336020, guid: 72f1ac110877e28448cb6a279f8766a7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72f1ac110877e28448cb6a279f8766a7, type: 3}
