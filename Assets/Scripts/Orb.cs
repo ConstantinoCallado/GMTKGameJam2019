@@ -81,11 +81,14 @@ public class Orb : MonoBehaviour
 
     public void EnemyHit()
     {
-        energyContainer.DrainEnergy(100);
+        //energyContainer.DrainEnergy(100);
+        Hit();
     }
 
     public void Hit()
     {
+        energyContainer.DrainEnergy(100);
+
         if(playerRef && !invocationStarted)
         {
             invocationStarted = true;

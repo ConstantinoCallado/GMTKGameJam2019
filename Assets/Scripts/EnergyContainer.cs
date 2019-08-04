@@ -24,6 +24,9 @@ public class EnergyContainer : MonoBehaviour
 
     public HaloRefs[] halos;
 
+    public ParticleSystem particles;
+    public ParticleSystem explosionParticles;
+
     public void Start()
     {
         RecalculateAspect();
@@ -60,6 +63,14 @@ public class EnergyContainer : MonoBehaviour
 
     public void DrainEnergy(float amount)
     {
+        if(energy > 0 && energyType != EnergyType.None)
+        {
+            if(explosionParticles)
+            {
+                explosionParticles.Emit(75);
+            }
+        }
+
         energy = Mathf.Clamp(energy - amount, 0, maxEnergyPool);
 
         if(energy == 0)
@@ -80,6 +91,11 @@ public class EnergyContainer : MonoBehaviour
                 orbLight.intensity = 0.3f;
                 orbLight.range = 5;
                 ActivateHalo("None");
+                if (particles) 
+                {
+                    var em = particles.emission;
+                    em.enabled = false;
+                }
                 break;
 
             case EnergyType.Light:
@@ -88,6 +104,16 @@ public class EnergyContainer : MonoBehaviour
                 orbLight.intensity = 1.5f;
                 orbLight.range = 9;
                 ActivateHalo("Light");
+                if (particles)
+                {
+                    var em = particles.emission;
+                    em.enabled = true;
+                    particles.startColor = orbLight.color;
+                }
+                if(explosionParticles)
+                {
+                    explosionParticles.startColor = orbLight.color;
+                }
                 break;
 
             case EnergyType.Damage:
@@ -96,6 +122,16 @@ public class EnergyContainer : MonoBehaviour
                 orbLight.intensity = 1;
                 orbLight.range = 6;
                 ActivateHalo("Damage");
+                if (particles)
+                {
+                    var em = particles.emission;
+                    em.enabled = true;
+                    particles.startColor = orbLight.color;
+                }
+                if (explosionParticles)
+                {
+                    explosionParticles.startColor = orbLight.color;
+                }
                 break;
 
             case EnergyType.Key:
@@ -104,6 +140,16 @@ public class EnergyContainer : MonoBehaviour
                 orbLight.intensity = 1;
                 orbLight.range = 6;
                 ActivateHalo("Key");
+                if (particles)
+                {
+                    var em = particles.emission;
+                    em.enabled = true;
+                    particles.startColor = orbLight.color;
+                }
+                if (explosionParticles)
+                {
+                    explosionParticles.startColor = orbLight.color;
+                }
                 break;
         }
     }
