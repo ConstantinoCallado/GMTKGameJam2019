@@ -13,10 +13,13 @@ public class Orb : MonoBehaviour
     [Header("Movement settings")]
     public bool isInHand = false;
     public bool returningToHand = false;
+    public float delayToReturnToHand = 1f;
 
     public float fakingGravityTime = 0.3f;
     private float fakingGravityUntil;
     private Character playerRef;
+
+    public bool invocationStarted = false;
 
     // Start is called before the first frame update
     void Start()
@@ -43,7 +46,7 @@ public class Orb : MonoBehaviour
     public void OnCollisionEnter(Collision other)
     {
         Debug.Log("Orb hitted " + other.gameObject.name);
-
+        Hit();
         fakingGravityUntil = 0;
     }
 
@@ -79,17 +82,22 @@ public class Orb : MonoBehaviour
     public void EnemyHit()
     {
         energyContainer.DrainEnergy(100);
-        Hit();
     }
 
     public void Hit()
     {
-        StartCoroutine(InvokeOrbCorutine());
+        if(playerRef && !invocationStarted)
+        {
+            invocationStarted = true;
+            StartCoroutine(InvokeOrbCorutine());
+        }
     }
 
     public IEnumerator InvokeOrbCorutine()
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(delayToReturnToHand);
         playerRef.InvokeOrb();
+
+        invocationStarted = false;
     }
 }

@@ -350,7 +350,9 @@ MonoBehaviour:
   energyContainer: {fileID: 535482860}
   isInHand: 0
   returningToHand: 0
+  delayToReturnToHand: 1.5
   fakingGravityTime: 0.3
+  invocationStarted: 0
 --- !u!114 &535482860
 MonoBehaviour:
   m_ObjectHideFlags: 0

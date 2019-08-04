@@ -10,7 +10,7 @@ public class Character : MonoBehaviour
     private Orb orb;
     private Camera camera;
 
-    public float delayToPickupOrb = 0.2f;
+    public float delayToPickupOrb = 1.5f;
     private float coolDownToPickupOrb;
 
     public Interactable interactableInRange;
@@ -32,7 +32,7 @@ public class Character : MonoBehaviour
             }
             else if(!orb.returningToHand)
             {
-                InvokeOrb();
+                //InvokeOrb();
             }
         }
 
